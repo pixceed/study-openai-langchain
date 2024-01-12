@@ -1,6 +1,5 @@
 import os
 import openai
-from pprint import pprint
 
 # APIキーの設定
 with open("apikey.txt") as f:
@@ -14,15 +13,12 @@ response = openai.chat.completions.create(
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Hello! I'm John."}
-    ]
+    ],
+    stream=True
 )
 
-print('\n####################################################\n')
-print(type(response))
-print()
-print(response)
-print()
-pprint(vars(response))
-print()
-pprint(response.choices[0].message.content)
-print('\n####################################################\n')
+# ストリーム出力
+for chunk in response:
+    choise = chunk.choices[0]
+    if choise.finish_reason is None:
+        print(choise.delta.content)
