@@ -1,4 +1,4 @@
-from langchain.prompt_template import PromptTemplate
+from langchain.prompts import PromptTemplate
 
 template = """
 以下の料理のレシピを考えてください。
